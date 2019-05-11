@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<div id="home-title"> 
+    <h1 onclick="home()"  id="logo">PHD</h1>  <button style="float;left; position: absolute; display: flex; top:20px; left:20%; " onclick="attendance()"id="attendance"> Attendance </button> <button style="float;left; position: absolute; display: flex; top:20px; left:30%; " onclick="doctors()"id="doctors"> Doctor </button><button style="float;left; position: absolute; display: flex; top:20px; left:40%; " onclick="medication()"id="medication"> Medication </button>
+
+        <h2>Search Doctors:</h2> 
+        <p> Doctor Name: </p> <input id="FName" type="text" placeholder="Doctor First Name"> <input id="LName" type="text" placeholder="Doctor Last Name"> 
+        <button onclick="locateHospital()"id="locateHospital"> Locate</button>   
+        <p> Specialty: </p> <input id="specialty" type="text" placeholder="Anethesiology, Cardiology, etc"> 
+        <button onclick="locateHospitalSpecialty()"id="specialty"> Locate</button>
+        <p> Shift Hours: </p> <input id="shift" type="text" placeholder="1, 2, 3, 4"> 
+        <button onclick="shift()"> Locate</button>  
+        <p>Patients Treated: </p> <input id="treatedDoctor" type="text" placeholder="Doctor ID"> 
+        <button onclick="treated()"id="treated"> Locate</button>  
+
+        <div id="queryResult"> 
+            <ol id="result" style="list-style-type:circle;"></ol>
+        </div>
+</div>
+
+<script>
+function locateHospital() {
+        var obj = {}
+        obj.fName=document.getElementById('FName').value
+        obj.lName=document.getElementById('LName').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/locateHospital',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            document.getElementById('result').innerHTML = "";  
+            var cleaned = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var arr = cleaned.split(',');
+            console.log(JSON.stringify(data));
+            var i;
+            for(i=0;i<arr.length;i++)
+            {
+                $("#result").append(arr[i]+'<br>');
+                if((i+1)%5==0)
+                    $("#result").append('<br>');     
+            }
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+function locateHospitalSpecialty() {
+        var obj = {}
+        obj.specialty=document.getElementById('specialty').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/locateHospitalSpecialty',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            document.getElementById('result').innerHTML = "";  
+            var cleaned = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var arr = cleaned.split(',');
+            console.log(JSON.stringify(data));
+            var i;
+            for(i=0;i<arr.length;i++)
+            {
+                $("#result").append(arr[i]+'<br>');
+                if((i+1)%5==0)
+                    $("#result").append('<br>');     
+            }
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function shift() {
+        var obj = {}
+        obj.shift=document.getElementById('shift').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/shift',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            document.getElementById('result').innerHTML = "";  
+            var cleaned = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var arr = cleaned.split(',');
+            console.log(JSON.stringify(data));
+            var i;
+            for(i=0;i<arr.length;i++)
+            {
+                $("#result").append(arr[i]+'<br>');
+                if((i+1)%5==0)
+                    $("#result").append('<br>');     
+            }
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+    
+function treated() {
+        var obj = {}
+        obj.doctorID=document.getElementById('treatedDoctor').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/treated',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            document.getElementById('result').innerHTML = "";  
+            var cleaned = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var arr = cleaned.split(',');
+            console.log(JSON.stringify(data));
+            var i;
+            for(i=0;i<arr.length;i++)
+            {
+                $("#result").append(arr[i]+'<br>');
+                if((i+1)%2==0)
+                    $("#result").append('<br>');     
+            }
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function home(){
+    window.location.href = "/index.html"
+}
+
+function medication(){
+    window.location.href = "/medication.html"
+}
+
+function attendance(){
+    window.location.href = "/attendance.html"
+}
+function doctors(){
+    window.location.href = "/doctors.html"
+}
+
+</script>
+</body>
+</html>

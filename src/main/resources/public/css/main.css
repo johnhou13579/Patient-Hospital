@@ -1,0 +1,461 @@
+body{
+  margin:0px;
+}
+
+#columns{
+  width: 20%;
+  float: left;
+}
+
+#content{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+}
+
+#homepage{
+  width:100%;
+  position: absolute;
+  margin:0px;
+  height: auto;
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+}
+
+#rightbox{
+  width:47%;
+  float: left;
+  margin: 5% 5% 0 3%;
+  padding: 2% 5% 4% 5%;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  background-color: white;
+}
+
+#leftbox{
+  width:15%;
+  float: left;
+  margin: 5% 4% 5% 7%;
+  padding: 2% 3% 3% 3%;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  max-height: 350px;
+  overflow: scroll;
+  scrollbar-width: thin;
+  background-color: white;
+}
+#leftbox::-webkit-scrollbar { 
+    display: none; 
+}
+
+#queryBox{
+  width:80%;
+  float: left;
+  margin: 5% 7% 5% 7%;
+  padding: 2% 3% 3% 3%;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  background-color: white;
+}
+
+#queryResult{
+  width:80%;
+  float: left;
+  margin: 3% 7% 0% 5%;
+  padding: 2% 3% 3% 3%;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  max-height: 500px;
+  overflow: scroll;
+  scrollbar-width: thin;
+  background-color: white;
+}
+#queryResult::-webkit-scrollbar { 
+    display: none; 
+}
+
+#chatBox{
+  bottom:10%;
+  width:30%;
+  float: right;
+  margin: 2% 7% 5% 7%;
+  border-style:solid;
+  border-color:white;
+  background: white;
+  border-radius: 10px;
+}
+
+#output{
+  font-family: Ubuntu-Bold;
+  font-size: 10px;
+  color: #827ffe;
+  width: auto;
+  padding: 0% 0 0 10%;
+  max-height: 100px;
+  min-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+#chatWindow{
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+
+#login-title {
+  font-family: Ubuntu-Bold;
+  font-size: 32px;
+  color: #827ffe;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  padding: 0px 0px 30px 0px;
+  font-weight: bold;
+}
+
+#home-title {
+  font-family: Ubuntu-Bold;
+  font-size: 10px;
+  color: #827ffe;
+  line-height: 1.2;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding: 5px;
+  font-weight: bold;
+  background-color: white;
+}
+
+#logo{
+    cursor: pointer;
+}
+
+#left-title,
+#historyDiv {
+  font-family: Ubuntu-Bold;
+  font-size: 14px;
+  color: #827ffe;
+  text-transform: uppercase;
+  text-align: left;
+  width: 100%;
+  padding: 0px 0px 0px 0px;
+  font-weight: bold;
+}
+
+#queryTitle{
+  font-family: Ubuntu-Bold;
+  font-size: 14px;
+  color: #827ffe;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+
+#chatTitle {
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  color: #827ffe;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 5% 0 5% 10%;
+  font-weight: bold;
+}
+
+.btn-group button {
+  background-color: #827ffe; /* Green background */
+  border: 1px solid white; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  border-radius: 10px;
+  outline: none;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:focus {
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+}
+
+.btn-group button:hover {
+  background-color: #716fe2;
+}
+
+#username,
+#password,
+#charityNameRegister
+{
+  border-radius: 8px;
+  outline:none;
+  border-style: none;
+  font-family: Ubuntu-Bold;
+  color: #403866;
+  line-height: 1.2;
+  font-size: 18px;
+
+  display: block;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  background: #eee;
+  height: 62px;
+  padding: 0px 0px 0px 20px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+#bankAccount{
+  border-radius: 8px;
+  outline:none;
+  border-style: none;
+  font-family: Ubuntu-Bold;
+  color: #403866;
+  line-height: 1.2;
+  font-size: 12px;
+
+  display: block;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  background: #eee;
+  height: 32px;
+  padding: 0px 0px 0px 10%;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+#charityName{
+  border-radius: 8px;
+  outline:none;
+  border-style: none;
+
+  font-family: Ubuntu-Bold;
+  color: #403866;
+  line-height: 1.2;
+  font-size: 12px;
+
+  display: block;
+  width: 95%;
+  margin-right: auto;
+  margin-left: 0;
+  background: #eee;
+  height: 32px;
+  padding: 0px 0px 0px 20px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+#message{
+  border-radius: 8px;
+  outline:none;
+  border-style: none;
+
+  font-family: Ubuntu-Bold;
+  color: #403866;
+  line-height: 1.2;
+  font-size: 10px;
+  padding-left:2%;
+  display: block;
+  float; left;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  background: #eee;
+  height: 12px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+#login,
+#connectB,
+#connectS{
+  border-radius: 8px;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 25px;
+  width: 95%;
+  height: 62px;
+  text-align:center;
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+}
+
+#connectB,
+#connectS{
+  border-radius: 8px;
+  cursor: pointer;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 3px;
+  width: 100%;
+  height: 32px;
+  text-align:center;
+  background-color: #827ffe;
+  }
+
+#search{
+  border-radius: 8px;
+  cursor: pointer;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 3px;
+  padding-left: 1%;
+  width: 100%;
+  height: 32px;
+  text-align:center;
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+}
+
+#donatedStyle{
+  border-radius: 8px;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 3px;
+  padding-left: 1%;
+  width: 100%;
+  height: 40px;
+  text-align:center;
+  background-color: #827ffe;
+}
+
+#send{
+  border-radius: 8px;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  float: right;
+  text-transform: uppercase;
+  margin-top: 3px;
+  margin-right: 10%;
+  padding-left: 1%;
+  width: 30%;
+  height: 20px;
+  text-align:center;
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+  cursor: pointer;
+}
+
+
+#addChar{
+  border-radius: 8px;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 10px auto 5px auto;
+  width: 49.4%;
+  height: 32px;
+  text-align:center;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #7297ff , #aba9ff);
+}
+
+#removeChar{
+  border-radius: 8px;
+  outline:none;
+  font-family: Ubuntu-Bold;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 10px auto 5px auto;
+  width: 49.4%;
+  height: 32px;
+  text-align:center;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #aba9ff , #7297ff);
+}
+
+#alignButton,
+#connect,
+#spend{
+  display: flex;
+  justify-content: center;
+}
+#signup,
+#list,
+#addCharity{
+  font-family: Ubuntu-Bold;
+  font-size: 13px;
+  color: #827ffe;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #827ffe;
+}
+
+#quickSearch{
+  font-family: Ubuntu-Bold;
+  font-size: 13px;
+  color: #827ffe;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #827ffe;
+  text-transform: uppercase;
+}
+
+
+#historylist{
+  font-family: Ubuntu-Bold;
+  font-size: 13px;
+  color: #827ffe;
+  text-align: left;
+  font-weight: bold;
+  margin: 10px 0px 0px 0px;
+  padding-inline-start: 0px; 
+}
+
+a:link {
+  color: #827ffe;
+}
+
+
+
+
+

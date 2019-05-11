@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<div id="home-title" > 
+    <h1 id ="logo">PHD</h1>  <button style="float;left; position: absolute; display: flex; top:20px; left:20%; " onclick="attendance()"id="attendance"> Attendance </button> <button style="float;left; position: absolute; display: flex; top:20px; left:30%; " onclick="doctors()"id="doctors"> Doctor </button><button style="float;left; position: absolute; display: flex; top:20px; left:40%; " onclick="medication()"id="medication"> Medication </button>
+    <div id="columns">  
+        <h2>Search Patient:</h2> 
+        <p> ID Number: </p> <input id="ID" type="number" placeholder="Patient ID"> </br> <button onclick="searchPatient()"id="searchPatient"> Search </button>
+        <h2>Add Patient:</h2> 
+        <p> ID Number: </p><input id="addID" type="number" placeholder="Patient ID">
+        <p> Name: </p> <input id="FName" type="text" placeholder="Patient First Name"> <input id="LName" type="text" placeholder="Patient Last Name"> <br>
+        <p> Gender: </p> <input id="Gender" type="text" placeholder="Male, Female, etc"> <br>
+        <p> Date of Birth: </p> <input id="DOB" type="date"> <br>
+        <p> Address: </p> <input id="Address_Street" type="text" placeholder="Street"> <input id="Address_City" type="text" placeholder="City"> <input id="Address_State" type="text" placeholder="State"> <br>
+        <p> Phone Number: </p> <input id="PhoneNum" type="text" placeholder="1234567890"> <br>
+
+        <button onclick="addPatient()"id="addPatient"> Add </button>
+
+        
+        <div id="result"></div>
+
+    </div>  
+    <div id="columns">
+        <h2>Search Hospital:</h2> 
+        <p> ID Number: </p> <input id="HID" type="number" placeholder="Hospital ID"> </br> <button onclick="searchHospital()"id="searchHospital"> Search </button>
+        <h2>Add Hospital:</h2>
+        <p> ID Number: </p> <input id="addHID" type="number" placeholder="Hospital ID"> </br> 
+        <p> Hospital Name: </p> <input id="HName" type="text" placeholder="St Jude, Kaiser, etc"> </br> 
+        <p> Facility Type: </p> <input id="Facility" type="text" placeholder="Long Term, Emergency Services, etc"> </br> 
+        <p> Address: </p> <input id="H_Address_Street" type="text" placeholder="Street"> <input id="H_Address_City" type="text" placeholder="City"> <input id="H_Address_State" type="text" placeholder="State"> <br>
+
+        <button onclick="addHospital()"id="addHospital"> Add </button>
+        <div id="H_result"></div>
+
+    </div>  
+    <div id="columns">
+        <h2>Search Doctor:</h2> 
+        <p> ID Number: </p> <input id="DID" type="number" placeholder="Doctor ID"> </br> <button onclick="searchDoctor()"id="searchDoctor"> Search </button>
+        <h2>Add Doctor:</h2>
+        <p> ID Number: </p> <input id="addDID" type="number" placeholder="Doctor ID"> </br> 
+        <p> Doctor Name: </p> <input id="DFName" type="text" placeholder="First Name"> </br> <input id="DLName" type="text" placeholder="Last Name"> </br> 
+        <p> Speciality: </p> <input id="Specialty" type="text" placeholder="Anesthesiology, Cardiology, etc"> </br> 
+        <p> Phone Number: </p><input id="DPhoneNum" type="text" placeholder="1234567890"> <br>
+
+        <button onclick="addDoctor()"id="addDoctor"> Add </button>
+        <div id="D_result"></div>
+
+    </div>  
+</div>
+
+<script>
+
+function searchPatient() {
+        var obj = {}
+        obj.id=document.getElementById('ID').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/searchPatient',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            var result = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var split = result.split(",");
+            document.getElementById("result").innerHTML = split[2] + "<br>" + split[5] + "<br>" + split[3] + "<br>" + split[0] + "<br>" + split[1] + "<br>" + split[4];
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function addPatient() {
+        var obj = {}
+        obj.id=document.getElementById('addID').value
+        obj.FName=document.getElementById('FName').value
+        obj.LName=document.getElementById('LName').value
+        obj.Gender=document.getElementById('Gender').value
+        obj.DOB=document.getElementById('DOB').value
+        obj.Address_Street=document.getElementById('Address_Street').value
+        obj.Address_City=document.getElementById('Address_City').value
+        obj.Address_State=document.getElementById('Address_State').value
+        obj.PhoneNum=document.getElementById('PhoneNum').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/addPatient',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            document.getElementById("result").innerHTML = "Successfully Added";
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("result").innerHTML = "Failed to Add";
+        });
+    }
+
+function searchHospital() {
+        var obj = {}
+        obj.id=document.getElementById('HID').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/searchHospital',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            var result = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var split = result.split(",");
+            document.getElementById("H_result").innerHTML = split[2] + "<br>" + split[3] + "<br>" + split[0] + "<br>" + split[1];
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("H_result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function addHospital() {
+        var obj = {}
+        obj.id=document.getElementById('addHID').value
+        obj.Name=document.getElementById('HName').value
+        obj.Facility=document.getElementById('Facility').value
+        obj.Address_Street=document.getElementById('H_Address_Street').value
+        obj.Address_City=document.getElementById('H_Address_City').value
+        obj.Address_State=document.getElementById('H_Address_State').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/addHospital',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            document.getElementById("H_result").innerHTML = "Successfully Added";
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("H_result").innerHTML = "Failed to Add";
+        });
+    }
+
+function searchDoctor() {
+        var obj = {}
+        obj.id=document.getElementById('DID').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/searchDoctor',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            var result = JSON.stringify(data).replace(/}/g,'').replace(/]/g,'').replace(/{/g,'').replace(/\[/g,'').replace(/\\/g,'').replace(/"/g,' ').replace(/:/g,": ");
+            var split = result.split(",");
+            document.getElementById("D_result").innerHTML = split[1] + "<br>" + split[3] + "<br>" + split[0] + "<br>" + split[2];
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("D_result").innerHTML = "Failed to Search";
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function addDoctor() {
+        var obj = {}
+        obj.id=document.getElementById('addDID').value
+        obj.FName=document.getElementById('DFName').value
+        obj.LName=document.getElementById('DLName').value
+        obj.Specialty=document.getElementById('Specialty').value
+        obj.PhoneNum=document.getElementById('DPhoneNum').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/addDoctor',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            document.getElementById("D_result").innerHTML = "Successfully Added";
+            console.log(data);
+        })
+        .fail(function(data) {
+            document.getElementById("D_result").innerHTML = "Failed to Add";
+        });
+    }
+
+function attendance(){
+    window.location.href = "/attendance.html"
+}
+
+function doctors(){
+    window.location.href = "/doctors.html"
+}
+
+function medication(){
+    window.location.href = "/medication.html"
+}
+
+
+
+
+
+
+function chat(){
+    var obj = {}
+    obj.chat = document.getElementById("chat").value;
+    $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/chat',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            document.getElementById("chatBox").innerHTML = JSON.stringify(data);
+            console.log(JSON.stringify(data));
+        })
+        .fail(function(data) {
+            console.log("Failed" + JSON.stringify(data));
+        });
+
+}
+
+function searchPage(){
+    var pathName = window.location.search;
+    var array = pathName.split("=");
+    var username=array[1];
+    window.location.href = '/queryPage.html?user='+username;
+}
+
+function updateBalance() {
+    var obj = {}
+    try{
+    obj.balance=document.getElementById('balance').value;
+    }catch(err){console.log("Bad Balance");}     
+    var pathName = window.location.search;
+    var array = pathName.split("=");
+    obj.username=array[1];
+
+    $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/updateBalance',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            var path = JSON.stringify(data).replace('}','').replace(']','');
+            var array = path.split(":");
+            var amount = parseFloat(JSON.stringify(array[1]).replace(/\"/g,''));
+            var amount2 = amount.toFixed(2);
+            document.getElementById("balance").innerHTML='$'+amount2;
+            console.log(JSON.stringify(obj));
+        })
+        .fail(function(data) {
+            console.log("Failed" + JSON.stringify(data));
+            console.log(data);
+        });
+        connectBank = function(){};
+}
+
+function spend() {
+    var obj = {}
+    try{
+    obj.balance=document.getElementById('balance').value;
+    }catch(err){console.log("Bad Balance");}     
+    var pathName = window.location.search;
+    var array = pathName.split("=");
+    obj.username=array[1];
+
+    $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/spend',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            var path = JSON.stringify(data).replace('}','').replace(']','');
+            var array = path.split(":");
+            var amount = parseFloat(JSON.stringify(array[1]).replace(/\"/g,''));
+            var amount2 = amount.toFixed(2);
+            document.getElementById("balance").innerHTML='$'+amount2;
+            console.log(JSON.stringify(obj));
+        })
+        .fail(function(data) {
+            console.log("Failed" + JSON.stringify(data));
+            console.log(data);
+        });
+        connectBank = function(){};
+}
+
+
+
+function connectBank() {
+    var obj = {}
+    obj.balance=String((Math.random()*1000.00).toFixed(2));
+    var pathName = window.location.search;
+    var array = pathName.split("=");
+    obj.username=array[1];
+    try{
+    obj.bankAccount = document.getElementById('bankAccount').value;
+    }catch(err){document.getElementById("balance").innerHTML = 'Try Again';}
+    $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/connectToBank',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            var newBalance = JSON.stringify(data);
+            var array = newBalance.split("\"");
+            document.getElementById("balance").innerHTML='$'+array;
+            document.getElementById("connect").style.display = 'none';
+            document.getElementById("spend").style.display = 'block';
+            console.log(JSON.stringify(obj));
+        })
+        .fail(function(data) {
+            console.log("Failed");
+            console.log(data);
+        });
+        connectBank = function(){};
+}
+
+function donate() {
+    var obj = {}
+    try{
+    var arr = (document.getElementById('balance').innerHTML).split(".");
+    obj.cents="."+ arr[1];
+    }catch(err){console.log("Bad Balance");}     
+    var pathName = window.location.search;
+    var array = pathName.split("=");
+    obj.username=array[1];
+    obj.charityName=document.getElementById('charityName').value
+
+    $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/donate',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            updateBalance();
+            console.log(JSON.stringify(obj));
+            quickSearch();
+            var dt = new Date();
+            var utcDate = dt.toUTCString();
+            $("#historylist").prepend('<u>'+obj.charityName +'</u>'+ '<br>' + 'Amount: $' + obj.cents+ '<br>' + utcDate + '<br><br>');
+        })
+        .fail(function(data) {
+            console.log("Failed" + JSON.stringify(obj) + document.getElementById('balance').innerHTML + JSON.stringify(data));
+            console.log(data);
+        });
+        connectBank = function(){};
+}
+
+
+function quickSearch() {
+        var obj = {}
+        obj.charityName=document.getElementById('charityName').value
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/quickSearch',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            console.log(JSON.stringify(obj));
+            var pathName = JSON.stringify(data);
+            var array = pathName.split("\"");
+            var amount = parseFloat(array[2].substring(1).replace(',','')).toFixed(2);
+            try{
+            document.getElementById("quickSearch").innerHTML =  array[3] + ': ' + array[5] + '<br>' + array[1] + ': $' + String(amount) + '<br>' + array[7] + ': ' + array[8].substring(1).replace('}','').replace(']','');}
+            catch(err)
+            {document.getElementById("quickSearch").innerHTML = 'Try Again';}
+            console.log(data);
+            document.getElementById("donatediv").style.display = 'block';
+        })
+        .fail(function(data) {
+            console.log(JSON.stringify(data));
+        });
+    }
+
+function addCharity() {
+        var obj = {}
+        obj.charityName=document.getElementById('charityName').value
+        var pathName = window.location.search;
+        var array = pathName.split("=");
+        obj.username=array[1];
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/addCharity',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            quickSearch();
+            console.log(JSON.stringify(obj));
+            var pathName = JSON.stringify(data);
+            var array = pathName.split("\"");
+            document.getElementById("addCharity").innerHTML =  'Successfully Added ' + array[3] + ' Charity To ' + array[7] +'\'s Subscribe List';
+        })
+        .fail(function(data) {
+            document.getElementById("addCharity").innerHTML = 'Error Adding Charity to List. Try Again';
+            console.log(JSON.stringify(obj));
+        });
+    }
+
+function removeCharity() {
+        var obj = {}
+        obj.charityName=document.getElementById('charityName').value
+        var pathName = window.location.search;
+        var array = pathName.split("=");
+        obj.username=array[1];
+        $.ajax({
+            type: 'POST',
+            url: 'http://54.241.148.85:80/removeCharity',
+            data: JSON.stringify(obj),
+            contentType: "application/json"
+        })
+        .done(function(data) {
+            quickSearch();
+            console.log(JSON.stringify(obj));
+            var pathName = JSON.stringify(data);
+            var array = pathName.split("\"");
+            document.getElementById("addCharity").innerHTML =  'Successfully Deleted ' + array[3] + ' Charity To ' + array[7] +'\'s Subscribe List';
+        })
+        .fail(function(data) {
+            document.getElementById("addCharity").innerHTML = 'Try Again';
+            console.log(JSON.stringify(obj));
+        });
+    }
+
+
+</script>
+</body>
+</html>
